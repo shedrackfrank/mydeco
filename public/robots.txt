@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Allow: /info
+Disallow: /dashboard
+Disallow: /settings
+Disallow: /inbox
+Disallow: /chat/
+Disallow: /browse
+Disallow: /decorator/
+Disallow: /reactivate
+Disallow: /choose-role
