@@ -175,3 +175,76 @@ form button[type='button'], .portfolio-item button, .reaction-bar button, .decor
 }
 @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; transition-duration:.01ms!important; } }
 @keyframes arrive { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+/* =========================================
+   MOBILE OVERFLOW & ALIGNMENT FIXES
+   ========================================= */
+
+/* 1. GLOBAL SAFETY NET: Stops the whole page from scrolling horizontally */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* 2. Force iframes (hCaptcha) and media to respect container width */
+iframe, .h-captcha, .h-captcha > div, img, video {
+  max-width: 100% !important;
+}
+
+/* 3. CHAT FIX: Force long text/URLs to wrap inside message bubbles */
+.chat-message p, 
+.chat-message-edit input {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+/* 4. MOBILE OVERRIDES (Screens under 680px) */
+@media (max-width: 680px) {
+  /* Make the "Continue with Google" buttons full-width so they don't spill */
+  section > button {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* CHAT HEADER: Stack identity and actions, allow buttons to wrap */
+  .chat-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .chat-header-actions {
+    width: 100%;
+    flex-wrap: wrap; /* Allows buttons to drop to a second line if needed */
+    gap: 6px;
+  }
+
+  .chat-header-actions button {
+    flex: 1 1 auto; /* Allows buttons to shrink and grow to fill space */
+    font-size: 0.75rem;
+    padding: 6px 10px;
+    white-space: nowrap;
+    min-width: fit-content;
+  }
+
+  /* Ensure forms and fieldsets never force a minimum width */
+  form, fieldset, .chat-composer {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  /* Allow Signup radio button labels to wrap if the screen is very narrow */
+  fieldset label {
+    flex-wrap: wrap;
+  }
+}
+
+/* 5. EXTRA SMALL SCREENS (Under 380px): Scale down hCaptcha if it still spills */
+@media (max-width: 380px) {
+  .h-captcha {
+    transform: scale(0.85);
+    transform-origin: left center;
+    margin-bottom: -15px; /* Compensates for the visual whitespace scaling creates */
+  }
+}
